@@ -1,24 +1,29 @@
-# RBAC Backend (FastAPI + SQLite)
+# ErrorWatch Backend (Python + FastAPI + SQLAlchemy)
 
-Role-Based Access Control backend application with SQLite storage and JWT authentication.
+Universal Application Error Monitoring Platform Backend service.
 
-## Features
-- Granular per-user, per-page permissions (`view`, `add`, `edit`, `delete`).
-- Auto-creating SQLite database (`app.db`) on first startup.
-- Password hashing using PBKDF2 HMAC SHA-256.
-- Password reset utility script: `python reset_password.py`.
+## Core Capabilities
+- **Event Ingestion Engine (`POST /api/v1/events`)**: High-throughput public ingestion endpoint accepting exceptions, stack traces, breadcrumbs, and request context from SDKs.
+- **Deterministic Issue Grouping**: Groups duplicate events into stable issues by hashing exception type and normalized in-app stack frames (does not group by dynamic messages alone).
+- **Data Redaction & Scrubbing**: Automatically scrubs sensitive headers and parameters (passwords, tokens, authorization secrets).
+- **Multi-tenant Organization & Project Isolation**: Each project is assigned a public client ingestion key (`ew_client_...`).
+- **Independent Uptime Monitoring**: Probes external endpoints with latency measurement, failure streaks, and incident creation.
+- **Alert Dispatch Engine**: Configurable alert triggers for new issues, error spikes, and service outages with delivery audit logs.
 
 ## Setup & Run
 
 ```bash
+cd backend
 python -m venv venv
 source venv/bin/activate       # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-API documentation available at `http://127.0.0.1:8000/docs`.
+Database (`errorwatch.db`) and demo data are initialized automatically on startup.
 
-### Default Credentials
+API Documentation: `http://127.0.0.1:8000/docs`
+
+### Default Demo Credentials
 - **Admin**: `admin@example.com` / `admin123`
-- **User**: `user@example.com` / `user123`
+- Emergency password reset: `python reset_password.py [email] [new_pass]`

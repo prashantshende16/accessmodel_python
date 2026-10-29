@@ -1,5 +1,5 @@
 """
-Utility script to reset any user's password (including the admin account) directly in app.db.
+Utility script to reset any user's password (including the admin account) directly in errorwatch.db.
 
 Usage:
     python reset_password.py
@@ -11,36 +11,30 @@ Usage:
 import sys
 import os
 
-# Import password hashing and db connection from main.py
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from main import connect, hash_password
+from app.db.session import SessionLocal
+from app.models.user import User
+from app.core.security import hash_password
 
 def reset_password(email="admin@example.com", new_password="admin123"):
-    conn = connect()
-    user = conn.execute(
-        "SELECT id, name, email, role FROM users WHERE lower(email) = lower(?)",
-        (email.strip(),),
-    ).fetchone()
+    db = SessionLocal()
+    try:
+        user = db.query(User).filter(User.email == email.strip().lower()).first()
+        if not user:
+            print(f"Error: User with email '{email}' not found in errorwatch.db.")
+            return False
 
-    if not user:
-        print(f"Error: User with email '{email}' not found in app.db.")
-        conn.close()
-        return False
+        user.password_hash = hash_password(new_password)
+        user.is_active = True
+        db.commit()
 
-    new_hash = hash_password(new_password)
-    conn.execute(
-        "UPDATE users SET password_hash = ?, is_active = 1 WHERE id = ?",
-        (new_hash, user["id"]),
-    )
-    conn.commit()
-    conn.close()
-
-    print(f"Success! Password for {user['name']} ({user['email']}) has been reset.")
-    print(f"New Password: {new_password}")
-    return True
+        print(f"Success! Password for {user.name} ({user.email}) has been reset.")
+        print(f"New Password: {new_password}")
+        return True
+    finally:
+        db.close()
 
 if __name__ == "__main__":
     target_email = sys.argv[1] if len(sys.argv) > 1 else "admin@example.com"
     target_pass = sys.argv[2] if len(sys.argv) > 2 else "admin123"
     reset_password(target_email, target_pass)
-

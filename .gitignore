@@ -3,5 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 app.db
+errorwatch.db
 .env
 .pytest_cache/
