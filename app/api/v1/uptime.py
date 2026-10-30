@@ -157,3 +157,4 @@ def list_incidents(user: User = Depends(get_current_user), db: Session = Depends
     ).filter(
         OrganizationMembership.user_id == user.id
     ).order_by(Incident.started_at.desc()).limit(50).all()
+

@@ -251,3 +251,4 @@ def seed_demo_data():
 
 # Seed demo data on startup
 seed_demo_data()
+

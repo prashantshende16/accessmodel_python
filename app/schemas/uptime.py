@@ -50,3 +50,4 @@ class UptimeCheckResponse(BaseModel):
 
     class Config:
         from_attributes = True
+

@@ -109,3 +109,4 @@ def ingest_error_event(db: Session, payload: EventIngestSchema, key_from_header:
     db.commit()
     db.refresh(event)
     return event
+

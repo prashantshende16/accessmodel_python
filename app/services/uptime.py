@@ -92,3 +92,4 @@ def execute_uptime_check(db: Session, check: UptimeCheck) -> UptimeResult:
     db.commit()
     db.refresh(result)
     return result
+

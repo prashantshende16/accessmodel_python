@@ -22,6 +22,8 @@ class ErrorEventDetailResponse(BaseModel):
 class IssueResponse(BaseModel):
     id: int
     project_id: int
+    project_name: Optional[str] = None
+    project_platform: Optional[str] = None
     fingerprint: str
     title: str
     exception_type: str
@@ -42,3 +44,4 @@ class IssueDetailResponse(IssueResponse):
 
 class IssueUpdateStatus(BaseModel):
     status: str  # unresolved, in_progress, resolved, ignored
+

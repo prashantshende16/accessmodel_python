@@ -35,3 +35,4 @@ def create_organization(body: OrganizationCreate, user: User = Depends(get_curre
     db.commit()
     db.refresh(org)
     return org
+

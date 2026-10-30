@@ -110,3 +110,4 @@ def delete_issue(issue_id: int, user: User = Depends(get_current_user), db: Sess
     db.delete(issue)
     db.commit()
     return {"ok": True}
+

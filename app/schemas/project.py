@@ -37,3 +37,11 @@ class ProjectResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class TestEventRequest(BaseModel):
+    error_type: Optional[str] = None
+    message: Optional[str] = None
+    filename: Optional[str] = None
+    function: Optional[str] = None
+    scenario: Optional[str] = None
+

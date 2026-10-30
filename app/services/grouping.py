@@ -49,3 +49,4 @@ def compute_issue_fingerprint(project_id: int, exception: ExceptionDetailSchema)
         
     raw = "|".join(components)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+

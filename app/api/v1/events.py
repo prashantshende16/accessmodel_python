@@ -23,3 +23,4 @@ def receive_event(
         "issue_id": event.issue_id,
         "status": "received"
     }
+

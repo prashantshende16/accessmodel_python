@@ -24,6 +24,14 @@ class Issue(Base):
     project = relationship("Project", back_populates="issues")
     events = relationship("ErrorEvent", back_populates="issue", cascade="all, delete-orphan", order_by="desc(ErrorEvent.server_received_at)")
 
+    @property
+    def project_name(self) -> str:
+        return self.project.name if self.project else "Unknown Project"
+
+    @property
+    def project_platform(self) -> str:
+        return self.project.platform if self.project else "generic"
+
 class ErrorEvent(Base):
     __tablename__ = "error_events"
 
@@ -45,3 +53,4 @@ class ErrorEvent(Base):
     server_received_at = Column(DateTime, default=datetime.datetime.utcnow, index=True)
 
     issue = relationship("Issue", back_populates="events")
+

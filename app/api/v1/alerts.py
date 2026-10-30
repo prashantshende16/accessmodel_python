@@ -93,3 +93,4 @@ def test_alert(rule_id: int, user: User = Depends(get_current_user), db: Session
     db.commit()
     db.refresh(delivery)
     return delivery
+

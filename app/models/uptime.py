@@ -51,3 +51,4 @@ class Incident(Base):
     resolved_at = Column(DateTime, nullable=True)
 
     check = relationship("UptimeCheck", back_populates="incidents")
+

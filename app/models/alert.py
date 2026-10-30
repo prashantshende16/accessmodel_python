@@ -30,3 +30,4 @@ class AlertDelivery(Base):
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
 
     rule = relationship("AlertRule", back_populates="deliveries")
+

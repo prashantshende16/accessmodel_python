@@ -81,6 +81,7 @@ def get_dashboard_overview(
             {
                 "id": i.id,
                 "project_id": i.project_id,
+                "project_name": i.project_name,
                 "title": i.title,
                 "exception_type": i.exception_type,
                 "environment": i.environment,
@@ -105,3 +106,4 @@ def get_dashboard_overview(
         ],
         "projects_summary": projects_summary
     }
+

@@ -37,3 +37,4 @@ class EventResponse(BaseModel):
     event_id: str
     issue_id: int
     status: str = "received"
+

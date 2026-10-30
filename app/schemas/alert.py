@@ -32,3 +32,4 @@ class AlertRuleResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
